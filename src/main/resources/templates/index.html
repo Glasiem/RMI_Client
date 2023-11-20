@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>View Table</title>
+    <!-- Include CSS -->
+    <script>
+        function submitOnChange(inputElement) {
+            var form = inputElement.form;
+            form.submit();
+        }
+    </script>
+</head>
+<body>
+<h1>View Table</h1>
+<table>
+    <tr th:each="row, rowStat : ${rows}">
+        <th:block th:each="cell, cellStat : ${row.values}">
+            <td>
+                <form th:action="@{/editCell}" method="post">
+                    <input type="text" th:name="|value-${rowStat.index}-${cellStat.index}|"
+                           th:value="${cell}"
+                           onblur="submitOnChange(this)" />
+                    <input type="hidden" name="rowIndex" th:value="${rowStat.index}" />
+                    <input type="hidden" name="columnIndex" th:value="${cellStat.index}" />
+                </form>
+            </td>
+        </th:block>
+    </tr>
+</table>
+</body>
+</html>
