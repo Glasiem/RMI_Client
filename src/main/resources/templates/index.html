@@ -1,31 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>View Table</title>
-    <!-- Include CSS -->
-    <script>
-        function submitOnChange(inputElement) {
-            var form = inputElement.form;
-            form.submit();
-        }
-    </script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Table Index</title>
 </head>
 <body>
-<h1>View Table</h1>
-<table>
-    <tr th:each="row, rowStat : ${rows}">
-        <th:block th:each="cell, cellStat : ${row.values}">
-            <td>
-                <form th:action="@{/editCell}" method="post">
-                    <input type="text" th:name="|value-${rowStat.index}-${cellStat.index}|"
-                           th:value="${cell}"
-                           onblur="submitOnChange(this)" />
-                    <input type="hidden" name="rowIndex" th:value="${rowStat.index}" />
-                    <input type="hidden" name="columnIndex" th:value="${cellStat.index}" />
-                </form>
-            </td>
-        </th:block>
-    </tr>
-</table>
+<h1>Table Index</h1>
+
+<h2>Table List</h2>
+<ul>
+  <li th:each="table : ${tables}">
+    <a th:href="@{'/viewTable?tableIndex=' + ${table.id}}" th:text="${table.name}"></a>
+  </li>
+  <a th:href="@{/addTable}">
+    <button>Add Table</button>
+  </a>
+</ul>
 </body>
 </html>

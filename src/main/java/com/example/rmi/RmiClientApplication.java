@@ -17,7 +17,6 @@ public class RmiClientApplication {
 	public static void main(String[] args) throws RemoteException, NotBoundException {
 		final Registry registry = LocateRegistry.getRegistry(8081);
 		remoteDB = (RemoteDB) registry.lookup(UNIQUE_BINDING_NAME);
-		remoteDB.createTestTable();
 
 		SpringApplication.run(RmiClientApplication.class, args);
 	}
